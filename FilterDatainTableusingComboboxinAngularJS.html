@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+
+  <head>
+  <title>Filter wiht  Combobox in AngularJS</title>
+			<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+		
+  
+    <script type="text/javascript">
+      var myapp=angular.module('myapp',[]);
+      
+      myapp.filter('unique', function() {
+        return function(collection, keyname){
+          var output = [], keys = [];
+          angular.forEach(collection, function(item) {
+            var key = item[keyname];
+            if(keys.indexOf(key) === -1) {
+              keys.push(key);
+              output.push(item);
+            }
+          });
+          return output;
+          
+        };
+      });
+      
+      myapp.controller('productController', function($scope){
+          $scope.listProducts = [
+              {id:'p01' , name:'Name1' , price:1000, category:'Nokia'},
+              {id:'p02' , name:'Name2' , price:2000, category:'Nokia'},
+              {id:'p03' , name:'Name3' , price:3000, category:'Samsung'},
+              {id:'p04' , name:'Name4' , price:4000, category:'Samsung'},
+              {id:'p05' , name:'Name5' , price:5000, category:'Samsung'},
+              {id:'p06' , name:'Name6' , price:6000, category:'Apple'},
+              {id:'p07' , name:'Name7' , price:7000, category:'Apple'}
+             ];
+         });
+          
+      
+    </script>
+  </head>
+
+  <body ng-controller="productController">
+    Category <select ng-model="search.category">
+        <option ng-repeat="product in listProducts | unique:'category'" value="{{product.category}}">{{product.category}}</option>
+    </select>
+    <br><br>
+     <table cellpadding="2"  cellspacing="2" border="1">
+         <tr>
+           <th>Id</th>
+           <th>Name</th>
+           <th>Price</th>
+           <th>Category</th>
+         </tr>
+         
+         <tr ng-repeat="product in listProducts | filter:search.category">
+           <td>{{product.id}}</td>
+           <td>{{product.name}}</td>
+           <td>{{product.price}}</td>
+           <td>{{product.category}}</td>
+         </tr>
+      </table>
+    
+    
+  </body>
+
+</html>
