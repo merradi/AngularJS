@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+
+  <head>
+  <title>Filter with AngularJS</title>
+			<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <script type="text/javascript">
+      var myapp=angular.module('myapp',[]);
+      
+      myapp.controller('productController', function($scope){
+           $scope.listProducts = [
+              {id:'p01' , name:'Nokia1' , price:1000},
+              {id:'p02' , name:'Nokia2' , price:2000},
+              {id:'p03' , name:'Samsung1' , price:3000},
+              {id:'p04' , name:'Samsung2' , price:4000},
+              {id:'p05' , name:'Samsung3' , price:5000},
+              {id:'p06' , name:'Apple 1' , price:6000},
+              {id:'p07' , name:'Apple 2' , price:7000},
+              {id:'p08' , name:'Apple 3' , price:8000}
+             ];
+      });
+    </script>
+  </head>
+
+  <body ng-controller="productController">
+      Search with product name <input type="text"  ng-model="search.name">
+      <br>
+      <table cellpadding="2"  cellspacing="2" border="1">
+         <tr>
+           <th>Id</th>
+           <th>Name</th>
+           <th>Price</th>
+         </tr>
+         <tr ng-repeat="product in listProducts | filter:search">
+           <td>{{product.id}}</td>
+           <td>{{product.name}}</td>
+           <td>{{product.price}}</td>
+         </tr>
+      </table>
+    
+    
+  </body>
+
+</html>
