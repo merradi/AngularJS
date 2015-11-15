@@ -1,0 +1,54 @@
+Karma
+
+Anciennement connu sous le nom de Testacular. 
+C'est un outil qui va déclencher votre suite de tests, la maintenir en exécution et vous permettre de l'organiser. 
+En gros, vous lui expliquez rapidement le contexte et vous n'avez plus qu'à vous concentrer sur vos tests.
+
+Installation
+Rien de plus simple grâce à notre ami npm :
+
+$ npm install --save-dev karma
+Ensuite, pour les tests unitaires, nous aurons besoin de jasmine :
+
+$ npm install --save-dev karma-jasmine
+Et enfin nous utiliserons PhantomJs comme navigateur exécutant les tests. Il faudra donc ajouter le launcher adapté pour Karma :
+
+$ npm install --save-dev karma-phantomjs-launcher
+Maintenant qu’on a karma et ses dépendances pour Angularjs, on va pouvoir entrer dans le vif du sujet et commencer nos tests !
+
+The karma command can now be also executed directly from the node_modules directory:
+$ ./node_modules/.bin/karma
+
+Pour générer un fichier de configuration, Karma fournit une tache d’initialisation:
+
+node node_modules/karma/bin/karma init <fichier/de/conf>
+karma init karma.config.js
+
+Eh oui, il faut d’abord dire à karma comment il doit être exécuté pour des tests unitaires Angularjs.
+
+Rien de bien compliqué, avec la doc. du site officiel et angular-seed, on peut rapidement trouver comment faire :
+
+// karma-unit.conf.js
+module.exports = function(config) {
+  config.set({
+    basePath: './',
+    files: [
+      'bower_components/angular/angular.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'js/test_app.js',
+      'test/unit/**/*.js'
+    ],
+    frameworks: ['mocha', 'chai-sinon'],
+    eporters: ['mocha'],
+    autoWatch: true,
+    browsers: ['PhantomJS']
+  });
+};
+
+Écrire un premier test:
+
+
+Now you are ready to start Karma. Again from the terminal type:
+
+karma start karma.config.js
+
