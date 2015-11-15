@@ -47,6 +47,11 @@ module.exports = function(config) {
 
 Écrire un premier test:
 
+describe('HelloWorld!', function() {
+it('should be equal', function() {
+assert('Hello World' === 'Hello World');
+});
+});
 
 Now you are ready to start Karma. Again from the terminal type:
 
